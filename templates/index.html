@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todoapp</title>
+    <style>
+        body{
+            margin: 0 auto;
+            background-color:beige;
+            font-family:Arial, Helvetica, sans-serif;
+            position: fixed;
+            right: 20%;
+            left: 20%;
+        }
+        #container1 {
+            padding: 30px;
+            background-color:#ed8989;
+            border-radius:20px;
+            text-align: center;
+            width: 90%;
+            height: 80%;
+            
+        }
+        .input_ {
+            border: 2px solid #a17878;
+            border-radius: 5px;
+            width: 70%;
+            height: 25px;
+            outline: none;
+        }
+        #container2 {
+            margin: 20px;
+            display: block;
+            text-align: left;
+        }
+        .submit_, .submit1, .submit2 {
+            border-radius: 5px;
+            border: None;
+            width: 50px;
+            height: 30px;
+            background-color: antiquewhite;
+            display: grid;
+            grid-template-columns: 1;
+            margin-left: 45%;
+            margin-top: 5px;
+        }
+        .submit1, .submit2{
+            width: 200px;
+            margin: 0 auto;
+        }
+        .submit_:hover{
+            background-color: azure;
+        }
+        .form1 {
+            display: flex;
+        }
+        .tododata{
+            margin: 10px;
+        }
+        .container3{
+            margin-top: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "container1">
+        <h1>A TODO APP</h1>
+        <p>What would you like to add to your todo list?</p>
+        <form action="/todo" method="POST" class = '.form1'>
+            <input class="input_" autofocus autocomplete="off" type="text" name="todo" placeholder="TODO">
+            <input class="submit_" type="submit" value="Add">
+        </form>
+        {% if result %}
+        <div id = "container2">
+            <h3>TODO</h3>
+            <form action="/todo" class="form2" method="POST">
+                {% for i in result %}
+                {% if i.completed == False %}
+                    <input type="radio" name="id" value="{{ i.id }}" class="tododata"> {{ i.description }}<br/>
+                {% endif %}
+                {% endfor %}
+                <input class="submit1" type="submit" value="Mark as completed">
+            </form>
+            <div id="container3">
+                <h3>COMPLETED</h3>
+                <form action="/todo" class="form2" method="POST">
+                    {% for i in result %}
+                    {% if i.completed == True %}
+                        <input type="radio" name="id" value="{{ i.id }}" class="tododata"> {{ i.description }}<br/>
+                    {% endif %}
+                    {% endfor %}
+                    <input class="submit2" type="submit" value="Add to todos">
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
